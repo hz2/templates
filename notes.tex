@@ -1,0 +1,36 @@
+\documentclass[11pt]{article}
+
+\input{preamble/preamble}
+% optional domain notation pack (crypto / probability / number sets):
+% \input{preamble/math-macros}
+
+\addbibresource{references.bib}
+
+\title{Notes Title}
+\author{Jason Devers}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\tableofcontents
+
+\newpage
+
+% a notes document is a single growing file -- add \section{...}s directly
+% below as you go, rather than splitting into sections/*.tex like main.tex does.
+
+\section{Topic}
+
+\begin{definition}{Term}{term}
+    Definition text.
+\end{definition}
+
+\fig{0.5}{example}{An example diagram exported from \texttt{figures/ipe/example.ipe}}
+
+\printbibliography
+
+\end{document}

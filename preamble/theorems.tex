@@ -1,0 +1,18 @@
+% custom theorem environments; each takes a title as its first tcolorbox
+% argument, e.g. \begin{definition}{Kerckhoffs's Principle}{kerckhoffs}
+\newtcbtheorem[auto counter, number within=section]{thm}{Theorem}%
+{colback=lightpurple!10, colframe=lightpurple!80!white, fonttitle=\bfseries, coltitle=white}{thmref}
+\newtcbtheorem[auto counter, number within=section]{definition}{Definition}%
+{colback=lightblue!10, colframe=lightblue!70!white, fonttitle=\bfseries, coltitle=white}{defref}
+\newtcbtheorem[auto counter, number within=section]{example}{Example}%
+{colback=lightred!10, colframe=lightred!80!white, fonttitle=\bfseries, coltitle=white}{exref}
+\newtcbtheorem[auto counter, number within=section]{remark}{Remark}%
+{colback=lightgreen!10, colframe=lightgreen!80!white, fonttitle=\bfseries, coltitle=white}{remref}
+\newtcbtheorem[auto counter, number within=section]{model}{Model}%
+{colback=lightorange!10, colframe=lightorange!80!white, fonttitle=\bfseries, coltitle=white}{modref}
+\newtcbtheorem[auto counter, number within=section]{lemma}{Lemma}%
+{colback=lightteal!10, colframe=lightteal!80!white, fonttitle=\bfseries, coltitle=white}{lemref}
+
+\renewcommand{\qed}{\hspace*{\fill}\rule{7pt}{7pt}}
+\newenvironment{proof_sketch}{\noindent{\bf Sketch of Proof} (Informal)\hspace*{1em}}{\qed\medskip}
+\renewenvironment{proof}{\noindent{\bf Proof:}\hspace*{1em}}{\qed\medskip}
