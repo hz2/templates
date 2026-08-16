@@ -1,0 +1,17 @@
+# typst build output
+build/
+
+# generated figure exports (source of truth is figures/ipe/*.ipe)
+figures/svg/*.svg
+figures/png/*.png
+
+# ipe backup files
+*.ipe~
+
+# nix
+.direnv/
+result
+result-*
+
+# local Claude Code session state
+.claude/
