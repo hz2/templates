@@ -1,0 +1,68 @@
+[package]
+name = "rust-template"
+version = "0.1.0"
+edition = "2024"
+# msrv; nix `checks.msrv` and ci read this value, keep it the single source
+rust-version = "1.86"
+license = "MIT OR Apache-2.0"
+description = "A short description of rust-template"
+readme = "README.md"
+repository = "https://github.com/hz2/rust-template"
+documentation = "https://docs.rs/rust-template"
+categories = ["no-std"]
+keywords = ["template"]
+include = [
+  "/src",
+  "/benches",
+  "/examples",
+  "/tests",
+  "/katex-header.html",
+  "/README.md",
+  "/CHANGELOG.md",
+  "/LICENSE-MIT",
+  "/LICENSE-APACHE",
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs", "--html-in-header", "katex-header.html"]
+
+[features]
+default = ["std"]
+std = []
+
+[dependencies]
+
+[dev-dependencies]
+criterion = { version = "0.8", default-features = false, features = ["cargo_bench_support"] }
+
+[[bench]]
+name = "stats"
+harness = false
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+unreachable_pub = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+# dev-deps routinely pull duplicate versions; not actionable here
+multiple_crate_versions = "allow"
+must_use_candidate = "allow"
+# flags `x_i` etc inside katex math
+doc_markdown = "allow"
+dbg_macro = "warn"
+todo = "warn"
+unwrap_used = "warn"
+expect_used = "warn"
+undocumented_unsafe_blocks = "warn"
+
+[lints.rustdoc]
+broken_intra_doc_links = "deny"
+
+[profile.bench]
+# symbols for perf/flamegraph without slowing the measured code
+debug = true

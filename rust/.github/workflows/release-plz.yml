@@ -1,0 +1,53 @@
+# opens a release pr from conventional commits; merging it tags and publishes.
+# publishing uses crates.io trusted publishing (oidc), so no registry token.
+# the first release must be a manual `cargo publish`.
+name: Release-plz
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    name: release
+    if: github.repository_owner == 'hz2'
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+      pull-requests: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: release-plz/action@v0.5
+        with:
+          command: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-pr:
+    name: release pr
+    if: github.repository_owner == 'hz2'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: release-plz-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: release-plz/action@v0.5
+        with:
+          command: release-pr
+        env:
+          # prs opened with GITHUB_TOKEN don't trigger ci; swap in a pat or app token if needed
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN || secrets.GITHUB_TOKEN }}

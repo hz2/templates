@@ -1,0 +1,60 @@
+# list recipes
+default:
+    @just --list
+
+# format rust, toml, and nix
+fmt:
+    cargo fmt
+    taplo fmt
+    nix fmt
+
+# fast local gate: fmt, clippy, tests
+check:
+    cargo fmt --check
+    taplo fmt --check
+    cargo clippy --all-targets --all-features -- --deny warnings
+    cargo test --all-features
+
+# run tests
+test *args:
+    cargo test --all-features {{ args }}
+
+# clippy with warnings as errors
+lint:
+    cargo clippy --all-targets --all-features -- --deny warnings
+
+# build docs with katex, same flags as docs.rs minus nightly-only cfg
+doc *args:
+    RUSTDOCFLAGS="--html-in-header katex-header.html" cargo doc --no-deps --all-features {{ args }}
+
+# coverage summary in the terminal
+cov:
+    cargo llvm-cov --all-features
+
+# coverage as browsable html
+cov-html:
+    cargo llvm-cov --all-features --html --open
+
+# coverage as lcov.info, for editors and codecov
+cov-lcov:
+    cargo llvm-cov --all-features --lcov --output-path lcov.info
+
+# run benchmarks, e.g. `just bench -- --save-baseline main`
+bench *args:
+    cargo bench {{ args }}
+
+# licenses, bans, sources, and advisories
+deny:
+    cargo deny check
+
+# check public api changes against the last published release
+semver:
+    cargo semver-checks
+
+# find unused dependencies
+unused:
+    cargo machete
+
+# everything ci runs, hermetically
+ci:
+    nix flake check -L

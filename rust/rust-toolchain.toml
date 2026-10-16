@@ -1,0 +1,5 @@
+# pinned dev toolchain, read by both rustup and the nix flake
+[toolchain]
+channel = "1.98.1"
+components = ["clippy", "rustfmt", "rust-src", "rust-analyzer", "llvm-tools-preview"]
+profile = "minimal"

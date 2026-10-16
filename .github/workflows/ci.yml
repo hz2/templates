@@ -1,0 +1,35 @@
+# instantiates each template the way a user would, then runs its checks
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # catch upstream breakage (toolchain, nixpkgs, advisories) between edits
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/nix-installer-action@v23
+      - uses: DeterminateSystems/magic-nix-cache-action@v15
+      - name: instantiate template
+        run: |
+          nix flake new -t .#rust "$RUNNER_TEMP/demo-crate"
+          cd "$RUNNER_TEMP/demo-crate"
+          sh init.sh demo-crate
+          git init -q && git add -A
+      - name: nix flake check
+        working-directory: ${{ runner.temp }}/demo-crate
+        run: nix flake check -L

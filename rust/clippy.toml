@@ -1,0 +1,3 @@
+# msrv comes from `rust-version` in Cargo.toml
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true

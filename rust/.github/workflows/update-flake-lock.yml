@@ -1,0 +1,22 @@
+# weekly pr bumping flake.lock (nixpkgs, crane, rust-overlay, advisory-db)
+name: Update flake.lock
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/nix-installer-action@v23
+      - uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          pr-title: "chore(deps): update flake.lock"
+          commit-msg: "chore(deps): update flake.lock"

@@ -1,0 +1,6 @@
+# see https://release-plz.dev/docs/config
+[workspace]
+# release prs bump versions from conventional commits and run cargo-semver-checks
+semver_check = true
+git_release_enable = true
+changelog_update = true
