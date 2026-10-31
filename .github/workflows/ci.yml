@@ -43,3 +43,8 @@ jobs:
             nix develop --command make build
             nix develop --command make notes
           fi
+      - uses: actions/upload-artifact@v4
+        if: matrix.template != 'rust'
+        with:
+          name: ${{ matrix.template }}-pdfs
+          path: ${{ runner.temp }}/demo-${{ matrix.template }}/build/*.pdf
