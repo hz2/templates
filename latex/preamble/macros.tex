@@ -1,0 +1,15 @@
+% generic utility macros
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\xor}{\oplus}
+
+% figure helper: \fig{width fraction of \textwidth}{basename in figures/pdf, no extension}{caption}
+\newcommand{\fig}[3]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#1\textwidth]{figures/pdf/#2}
+        \caption{#3}
+        \label{fig:#2}
+    \end{figure}
+}

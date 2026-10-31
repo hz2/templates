@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70230" creator="Ipe 7.2.30">
+<info created="D:20260816000000" modified="D:20260816000000"/>
+<ipestyle name="paper-palette">
+<color name="lightblue" value="0.078 0.361 0.620"/>
+<color name="lightgreen" value="0.298 0.725 0.388"/>
+<color name="lightorange" value="1 0.576 0.310"/>
+<color name="lightred" value="1 0.349 0.369"/>
+<color name="lightpurple" value="0.643 0.502 0.812"/>
+<color name="lightteal" value="0.282 0.718 0.718"/>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<view layers="alpha" active="alpha"/>
+<path layer="alpha" stroke="black" fill="lightblue" pen="fat">
+22 0 0 22 60 100 e
+</path>
+<path layer="alpha" stroke="black" fill="lightblue" pen="fat">
+22 0 0 22 300 100 e
+</path>
+<path layer="alpha" stroke="black" pen="fat" arrow="normal/normal">
+84 100 m
+276 100 l
+</path>
+<text layer="alpha" pos="60 100" stroke="white" type="label" halign="center" valign="center" size="normal" style="math">e_0</text>
+<text layer="alpha" pos="300 100" stroke="white" type="label" halign="center" valign="center" size="normal" style="math">e_1</text>
+<text layer="alpha" pos="180 112" stroke="black" type="label" halign="center" valign="bottom" size="normal" style="math">D</text>
+</page>
+</ipe>

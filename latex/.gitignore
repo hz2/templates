@@ -1,0 +1,31 @@
+# latex build output
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# biber
+*-blx.bib
+
+# generated figure exports (source of truth is figures/ipe/*.ipe)
+figures/pdf/*.pdf
+figures/png/*.png
+
+# ipe backup files
+*.ipe~
+
+# nix
+.direnv/
+result
+result-*
+
+# local Claude Code session state
+.claude/
