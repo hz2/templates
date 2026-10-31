@@ -20,6 +20,30 @@
           description, keywords, and categories in Cargo.toml.
         '';
       };
+      typst = {
+        path = ./typst;
+        description = "Typst paper and notes with Ipe and Cetz diagrams";
+        welcomeText = ''
+          # typst template
+
+          Run `nix develop` for Typst, Ipe and PDF tools.
+
+          Build the paper with `make build` and notes with `make notes`.
+          See README.md for the project structure and diagram workflows.
+        '';
+      };
+      latex = {
+        path = ./latex;
+        description = "LaTeX paper and notes with Ipe diagrams";
+        welcomeText = ''
+          # latex template
+
+          Run `nix develop` for LaTeX, Ipe and PDF tools.
+
+          Build the paper with `make build` and notes with `make notes`.
+          See README.md for the project structure and diagram workflow.
+        '';
+      };
     };
   };
 }

@@ -1,37 +1,55 @@
 # templates
 
-Project templates, one self-contained directory per language. Each is a
-nix flake template, so you copy only the part you need.
+Project templates with one self-contained directory per language. Each flake template carries
+its own build, tooling and checks, so a project can be created without inheriting this repository.
 
-| template | contents |
-|----------|----------|
-| [`rust`](rust) | library crate: crane + rust-overlay flake, pinned toolchain, clippy pedantic, cargo-deny/audit, llvm-cov + codecov, criterion, KaTeX docs, release-plz |
+| template | use |
+|---|---|
+| `rust` | Library crate with a pinned toolchain, tests, linting, coverage, benchmarks, docs and release tooling |
+| `typst` | Paper and notes templates with Ipe and native Cetz diagrams |
+| `latex` | Paper and notes templates with an Ipe diagram workflow |
 
-## Using a template
+## Create a project
 
-With nix (copies just that directory):
+With Nix, choose one template:
 
 ```sh
 nix flake new -t github:hz2/templates#rust my-crate
-cd my-crate && sh init.sh my-crate && git init && git add -A
+```
+
+```sh
+nix flake new -t github:hz2/templates#typst my-paper
+```
+
+```sh
+nix flake new -t github:hz2/templates#latex my-paper
+```
+
+For the Rust template, rename the crate and initialize its files:
+
+```sh
+cd my-crate
+sh init.sh my-crate
+git init && git add -A
 nix flake check -L
 ```
 
-Without nix:
+For Typst and LaTeX projects, enter the dev shell and build either the paper or notes entrypoint:
 
 ```sh
-curl -L https://codeload.github.com/hz2/templates/tar.gz/main \
-  | tar -xz --strip-components=2 templates-main/rust
+cd my-paper
+nix develop
+make build
+make notes
 ```
 
-Or a sparse clone, to track the template itself:
+The first Typst build downloads packages from its package registry. See each template's README
+for its tools, output files, and diagram workflow.
 
-```sh
-git clone --filter=blob:none --sparse https://github.com/hz2/templates
-cd templates && git sparse-checkout set rust
-```
+## Develop a template
 
-## Adding a template
+Each directory is independently instantiable with `nix flake new -t .#<name> <directory>`.
+Keep changes and language-specific dependencies inside that directory. Register new templates
+in the root `flake.nix`, document them in this table, and cover instantiation in the root CI.
 
-Create `<lang>/` with its own `flake.nix`, register it under `templates`
-in the root `flake.nix`, and add a row above.
+The original Rust, Typst and LaTeX repository histories are preserved as merge parents.

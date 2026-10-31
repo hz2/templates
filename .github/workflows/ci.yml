@@ -18,18 +18,28 @@ permissions:
   contents: read
 
 jobs:
-  rust:
+  template:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template: [rust, typst, latex]
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/nix-installer-action@v23
       - uses: DeterminateSystems/magic-nix-cache-action@v15
       - name: instantiate template
+        env:
+          TEMPLATE: ${{ matrix.template }}
         run: |
-          nix flake new -t .#rust "$RUNNER_TEMP/demo-crate"
-          cd "$RUNNER_TEMP/demo-crate"
-          sh init.sh demo-crate
-          git init -q && git add -A
-      - name: nix flake check
-        working-directory: ${{ runner.temp }}/demo-crate
-        run: nix flake check -L
+          destination="$RUNNER_TEMP/demo-$TEMPLATE"
+          nix flake new -t ".#$TEMPLATE" "$destination"
+          cd "$destination"
+          if [ "$TEMPLATE" = rust ]; then
+            sh init.sh demo-crate
+            git init -q && git add -A
+            nix flake check -L
+          else
+            nix develop --command make build
+            nix develop --command make notes
+          fi
