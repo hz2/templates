@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipestyle SYSTEM "ipe.dtd">
+<!-- shared palette, kept in sync with preamble/colors.tex.
+     load this in the Ipe GUI (Edit > Style Sheets > Add) for interactive
+     editing; new diagrams should also embed a copy of this <ipestyle> block
+     directly so they render standalone with ipetoipe/iperender. -->
+<ipestyle name="paper-palette">
+<color name="lightblue" value="0.078 0.361 0.620"/>
+<color name="lightgreen" value="0.298 0.725 0.388"/>
+<color name="lightorange" value="1 0.576 0.310"/>
+<color name="lightred" value="1 0.349 0.369"/>
+<color name="lightpurple" value="0.643 0.502 0.812"/>
+<color name="lightteal" value="0.282 0.718 0.718"/>
+</ipestyle>
