@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        template: [rust, typst, latex]
+        template: [rust, python, typst, latex]
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/nix-installer-action@v23
@@ -35,8 +35,8 @@ jobs:
           destination="$RUNNER_TEMP/demo-$TEMPLATE"
           nix flake new -t ".#$TEMPLATE" "$destination"
           cd "$destination"
-          if [ "$TEMPLATE" = rust ]; then
-            sh init.sh demo-crate
+          if [ "$TEMPLATE" = rust ] || [ "$TEMPLATE" = python ]; then
+            sh init.sh "demo-$TEMPLATE"
             git init -q && git add -A
             nix flake check -L
           else
@@ -44,7 +44,7 @@ jobs:
             nix develop --command make notes
           fi
       - uses: actions/upload-artifact@v4
-        if: matrix.template != 'rust'
+        if: matrix.template == 'typst' || matrix.template == 'latex'
         with:
           name: ${{ matrix.template }}-pdfs
           path: ${{ runner.temp }}/demo-${{ matrix.template }}/build/*.pdf

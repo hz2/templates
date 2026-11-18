@@ -20,6 +20,21 @@
           description, keywords, and categories in Cargo.toml.
         '';
       };
+      python = {
+        path = ./python;
+        description = "Small Python apps and CLIs with stdlib runtime, pytest, and ruff";
+        welcomeText = ''
+          # python template
+
+          Rename the project, then check:
+
+              sh init.sh <project-name>
+              git init && git add -A
+              nix flake check -L
+
+          See README.md for checks without Nix.
+        '';
+      };
       typst = {
         path = ./typst;
         description = "Typst paper and notes with Ipe and Cetz diagrams";

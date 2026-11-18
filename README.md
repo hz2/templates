@@ -6,6 +6,7 @@ its own build, tooling and checks, so a project can be created without inheritin
 | template | use |
 |---|---|
 | `rust` | Library crate with a pinned toolchain, tests, linting, coverage, benchmarks, docs and release tooling |
+| `python` | Small stdlib apps and CLIs with pytest and ruff checks |
 | `typst` | Paper and notes templates with Ipe and native Cetz diagrams |
 | `latex` | Paper and notes templates with an Ipe diagram workflow |
 
@@ -15,6 +16,10 @@ With Nix, choose one template:
 
 ```sh
 nix flake new -t github:hz2/templates#rust my-crate
+```
+
+```sh
+nix flake new -t github:hz2/templates#python my-app
 ```
 
 ```sh
@@ -30,6 +35,15 @@ For the Rust template, rename the crate and initialize its files:
 ```sh
 cd my-crate
 sh init.sh my-crate
+git init && git add -A
+nix flake check -L
+```
+
+For the Python template, rename the project and run its checks:
+
+```sh
+cd my-app
+sh init.sh my-app
 git init && git add -A
 nix flake check -L
 ```
